@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <style>
+    #root {
+        background-color: tomato;
+        color: white;
+        font-size: 2em;
+        text-align: center;
+        height: 100vh;
+    }
+    </style>
+<body>
+    <div id="root">
+        <input type="text" placeholder="username" id="usernameInput">
+        <input type="password" placeholder="password" id="passwordInput">
+        <button onclick="onLogin()" id="loginButton"> Login</button>
+        <button onclick="onLogout()" id="logoutButton"> Logout</button>
+        <br/>
+            <h1 id="admin">LOGIN SEBAGAI ADMIN</h1>
+            <h1 id="basic">LOGIN SEBAGAI USER BIASA</h1>
+    </div>
+
+    <script type="application/javascript">
+
+        let usernameInput = document.getElementById('usernameInput');
+        let passwordInput = document.getElementById('passwordInput')
+        let loginButton = document.getElementById('loginButton');
+        let logoutButton = document.getElementById('logoutButton');
+        let admin = document.getElementById('admin');
+        let basic = document.getElementById('basic');
+
+        admin.style.display = "none";
+        basic.style.display = "none";
+        logoutButton.style.display = "none";
+
+        function onLogin (){
+            localStorage.setItem("username", usernameInput.value);
+            logoutButton.style.display = "block"
+            if(usernameInput.value == "admin" && passwordInput.value == "admin123") {
+                usernameInput.style.display = "none"
+                passwordInput.style.display = "none"
+                loginButton.style.display = "none"
+                localStorage.setItem("role", "admin");
+                basic.style.display = "none";
+                admin.style.display = "block";
+            } else {
+                usernameInput.style.display = "none"
+                passwordInput.style.display = "none"
+                loginButton.style.display = "none"
+                localStorage.setItem("role", "basic");
+                admin.style.display = "none";
+                basic.style.display = "block";
+            }
+        }
+
+        if(localStorage.getItem('username')){
+            usernameInput.style.display = "none"
+            passwordInput.style.display = "none"
+            loginButton.style.display = "none"
+            logoutButton.style.display = "block"
+            if(localStorage.getItem('role') == "admin"){
+                basic.style.display = "none";
+                admin.style.display = "block";
+            }else {
+                admin.style.display = "none";
+                basic.style.display = "block";
+            }
+        }
+
+        function onLogout(){
+            localStorage.clear();
+            location.reload();
+        }
+    </script>
+</body>
+</html>
+<!-- const myName = "Dwi Arya Safrulloh";
+const myHobby = "Playing Games And Coding";
+
+let root = document.getElementById('root');
+root.textContent = myName +  '\n' + myHobby;
+root.style.backgroundColor = "green";
+root.style.color = "white";
+root.style.fontSize = "2em";
+root.style.textAlign = "center";
+root.style.height = "100vh";
+perbedaan antara innerText dan textContent adalah
+- innerText adalah nonstandar, sedangkan textContent adalah standar sebelumnya.
+- innerText mengembalikan teks terlihat yang terkandung didalam sebuah simpul,
+    sedangkan textContent mengembalikan penuh teks.
+    misalnya, pada HTML <span>Hello <span style="display: none;  "> World </span></span>
+    berikut. Untuk daftar perbedaan yang lebih lengkap, lihat
+- innerText didefinisikan hanya untuk objek HTMLElement, sedangkan textContent 
+    didefinisikan untuk semua objek node. */ -->
